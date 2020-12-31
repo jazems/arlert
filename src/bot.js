@@ -1,17 +1,16 @@
-require('dotenv').config();
-
-const { Client } = require('discord.js');
+const { Client, DiscordAPIError } = require('discord.js');
 const client = new Client();
-const PREFIX = ".";
+const { bot_info, token, prefix } = require('./config.json');
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
+    console.log(`Launching ${bot_info.name} - Version ${bot_info.version}`);
 });
 
 client.on('message', (message) => {
     console.log(`[${message.author.tag}]: ${message.content}`); 
 
-    if (message.content.startsWith(PREFIX)) {
+    if (message.content.startsWith(prefix)) {
         if (message.content.startsWith('ping', 1)) {
             message.reply(`latency = ${Date.now() - message.createdTimestamp}ms`);
         } 
@@ -24,6 +23,13 @@ client.on('message', (message) => {
                 message.reply(`Tails!`);
             }
         }
+
+        else if (message.content.startsWith('help', 1)) {
+            message.channel.send({embed: {
+                color: 3447003,
+                description: "A very simple Embed!"
+              }});
+        }
         
         else {
             message.reply(`command ${message.content} is not recognized.`);
@@ -35,4 +41,4 @@ client.on('message', (message) => {
     }
 });
  
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(token);
