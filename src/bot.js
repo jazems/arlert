@@ -1,6 +1,22 @@
-const { Client, DiscordAPIError } = require('discord.js');
-const client = new Client();
+const fs = require('fs');
+
+const Discord = require('discord.js');
+const client = new Discord.Client();
 const { bot_info, token, prefix } = require('./config.json');
+
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+
+/**
+ * @Source discordjs.guide
+ */
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+
+	// set a new item in the Collection
+	// with the key as the command name and the value as the exported module
+	client.commands.set(command.name, command);
+}
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
@@ -14,33 +30,21 @@ client.on('message', (message) => {
         return;
     }
 
-    
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if (args.length === 0) {
-        message.reply(`You have not input any arguments. Type ${prefix}help for a list of commands.`);
+    if (!client.commands.has(command)) {
+        message.reply(`Command not found. Type .help for a list of commands.`);
+        return;
     }
 
-    if (message.content.startsWith('ping', 1)) {
-        message.reply(`latency = ${Date.now() - message.createdTimestamp}ms`);
+    try {
+        client.commands.get(command).execute(message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply(`There was an error trying to execute command "${command}".`)
     }
 
-    else if (message.content.startsWith('coinflip', 1)) {
-        var outcome = Math.floor(Math.random() * 2);
-        if (outcome === 0) {
-            message.reply(`Heads!`);
-        } else {
-            message.reply(`Tails!`);
-        }
-    }
-
-    else if (message.content.startsWith('help', 1)) {
-        message.channel.send({embed: {
-            color: 3447003,
-            description: "A very simple Embed!"
-            }});
-    }
 });
  
 client.login(token);
