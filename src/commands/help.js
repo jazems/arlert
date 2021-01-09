@@ -1,6 +1,6 @@
 module.exports = {
     name: 'help',
-    description: 'Help embed.',
+    description: 'Command repo.',
     execute(message, args) {
         const Discord = require(`discord.js`);
         const fs = require(`fs`);
@@ -18,7 +18,7 @@ module.exports = {
         console.log(commandFiles);
         for (const file of commandFiles) {
             const command = require(`./${file}`);
-            helpEmbed.addField(`${command.name}`, `${command.description}`, true);
+            helpEmbed.addField(`${command.name}`, `\`${command.description}\``, true);
         }
 
         message.reply(' ');
