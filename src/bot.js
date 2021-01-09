@@ -7,9 +7,6 @@ const { bot_info, token, prefix } = require('./config.json');
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync(__dirname + "/commands").filter(file => file.endsWith('.js'));
 
-/**
- * @Source discordjs.guide
- */
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
