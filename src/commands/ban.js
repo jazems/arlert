@@ -1,28 +1,40 @@
 module.exports = {
     name: 'ban',
     description: 'ban a member.',
-    execute(message, args) {
+    async execute(message, args) {
 
-        if (!message.guild) return;
+        if (!message.guild) return; 
 
         if (args.length == 0) {
             message.reply(`You must specify a user to ban.`);
             return;
         }
 
-        const { member, mentions } = message;
+        const { member, mentions, guild } = message;
+        let target = mentions.users.first();
+        let reason = args.slice(1).join(' ');
+        
+        if (!target) {
+            try {
+                target = await guild.members.fetch(args[0]);
+            } catch (error) {
+                message.reply("Invalid userID.");
+                console.log(error);
+            }
+        }
 
-        console.log(mentions);
-
+        /*
         if (member.hasPermission('ADMINISTRATOR') || 
         member.hasPermission('BAN_MEMBERS')) {
-            const target = mentions.members.first();
-            message.channel.send(`<@${target.id}> was banned.`);
-            target.ban();
+            if (reason != null) {
+                message.channel.send(`<@${target}> was banned for ${reason}.`);
+            } else {
+                message.channel.send(`<@${target}> was banned.`);
+            }
+            guild.members.ban(target, { reason: reason } );
         } else {
             message.reply('Insufficient permissions.');
         }
-
-        
+        */
     }
 }

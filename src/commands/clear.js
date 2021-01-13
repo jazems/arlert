@@ -9,6 +9,8 @@ module.exports = {
     description: 'Clear messages.',
 	execute(message, args) {
 
+        if (!message.guild) return;
+
         let numDelete; 
 
         if (args.length == 0 || isNaN(parseInt(args[0])) || parseInt(args[0]) < 1) {

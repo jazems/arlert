@@ -15,9 +15,10 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
     console.log(`Launching ${bot_info.name} - Version ${bot_info.version}`);
+    client.user.setActivity("Fall of Marley", { type: "WATCHING" })
 });
 
-client.on('message', (message) => {
+client.on('message', async message => {
     console.log(`[${message.author.tag}]: ${message.content}`); 
 
     if (!message.content.startsWith(prefix) || message.author.bot) {
@@ -33,7 +34,7 @@ client.on('message', (message) => {
     }
 
     try {
-        client.commands.get(command).execute(message, args);
+        await client.commands.get(command).execute(message, args);
     } catch (error) {
         console.error(error);
         message.reply(`There was an error trying to execute command "${command}".`)
