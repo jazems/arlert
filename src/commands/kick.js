@@ -2,10 +2,10 @@ module.exports = {
     name: 'kick',
     description: 'kick a member.',
     async execute(message, args) {
-        const Discord = require('discord.js');
-        const { bot_info, token, prefix } = require(`./../config.json`);
-
         if (!message.guild) return;
+
+        const Discord = require('discord.js');
+        const { bot_info, color } = require(`./../config.json`);
         
         const { member, mentions, guild } = message;
 
@@ -27,7 +27,7 @@ module.exports = {
         }
 
         let kickEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor(color)
         .setTitle('User kicked')
         .setTimestamp()
         .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');

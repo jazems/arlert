@@ -5,10 +5,10 @@ module.exports = {
         const Discord = require(`discord.js`);
         const fs = require(`fs`);
 
-        const { bot_info } = require(`./../config.json`);
+        const { bot_info, color } = require(`./../config.json`);
 
         const helpEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor(color)
         .setTitle('Help')
         .setDescription('Administrative toolkit designed to automate the bot flipping process.\n ')
         .setTimestamp()

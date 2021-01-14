@@ -19,8 +19,6 @@ module.exports = {
             numDelete = parseInt(args[0]);
         }
 
-        console.log(numDelete);
-
         async function clear() {
             message.delete();
             message.channel.bulkDelete(numDelete + 1, true)

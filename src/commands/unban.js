@@ -1,44 +1,54 @@
 module.exports = {
     name: 'unban',
-    description: 'Unban a member.',
+    description: 'unban a member.',
     async execute(message, args) {
-
         if (!message.guild) return;
+        
+        const Discord = require('discord.js');
+        const { bot_info, color } = require(`./../config.json`);
+        
+        const { member, mentions, guild } = message;
+
+        if (!member.hasPermission('BAN_MEMBERS') || !member.hasPermission('ADMINISTRATOR')) {
+            message.reply("You do not have permission to unban.");
+            return;
+        }
 
         if (args.length == 0) {
             message.reply(`You must specify a user to unban.`);
             return;
         }
 
-        const { guild, mentions, channel } = message;
-        let target;
-
-        if (mentions.length == 0) {
-            target = mentions.users.first();
-        } else {
-            target = args.shift();
-        }
-
+        let target = mentions.members.first();
         let reason = args.slice(1).join(' ');
 
-        console.log(await guild.fetchBans());
-        console.log("target " + target);
-
-        guild.members.unban(target);
-        channel.send(`${target} was unbanned.`);
-
-        /*
-        if (await guild.fetchBans().get(target) == null) {
-            message.channel.send("Target is already unbanned.");
+        if (!reason) {
+            reason = undefined;
         }
 
-        if (await guild.fetchBans().get(target) != null && args.length <= 1) {
-            guild.members.unban(target)
-            message.channel.send(`${target.tag} was unbanned.`)
-        } else if (await guild.fetchBans().has(target) != null && args.length > 1) {
-            guild.members.unban(target, reason);
-            message.channel.send(`${target.tag} was unbanned for ${reason}`);
+        let unbanEmbed = new Discord.MessageEmbed()
+        .setColor(color)
+        .setTitle('User unbanned')
+        .setTimestamp()
+        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
+
+        if (!target) {
+            try {
+                target = args[0];
+                guild.members.unban(target, { reason: reason });
+                unbanEmbed.setDescription(`\`${target}\` was unbanned by \`${member.user.tag}\` for \`${reason}\`.`)
+                message.channel.send(unbanEmbed);
+                return;
+            } catch (error) {
+                unbanEmbed.setDescription(`Invalid userID.`)
+                message.channel.send(unbanEmbed);
+                return;
+            }
+        } else {
+            guild.members.unban(target, { reason: reason });
+            unbanEmbed.setDescription(`\`${target.user.tag}\` was unbanned by \`${member.user.tag}\` for \`${reason}\`.`)
+            message.channel.send(unbanEmbed);
+            return;
         }
-        */
     }
 }

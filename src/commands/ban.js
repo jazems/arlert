@@ -27,14 +27,14 @@ module.exports = {
         }
 
         let banEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor(color)
         .setTitle('User banned')
         .setTimestamp()
         .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
 
         if (!target) {
             try {
-                target = await guild.members.fetch(args[0]);
+                target = await guild.members.fetch(args[0]).catch(console.error);
                 guild.members.ban(target, { reason: reason });
                 banEmbed.setDescription(`\`${target.user.tag}\` was banned by \`${member.user.tag}\` for \`${reason}\`.`)
                 message.channel.send(banEmbed);
