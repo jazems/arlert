@@ -22,21 +22,33 @@ module.exports = {
         }
 
         let target = mentions.members.first();
-
-        if (!target) {
-            try {
-                target = await guild.members.fetch(args[0]);
-            } catch (error) {
-                message.reply("Invalid userID.");
-                console.log(error);
-                return;
-            }
-        }
-
+        
         let reason = args.slice(1).join(' ');
 
         if (!reason) {
             reason = undefined;
+        }
+
+        if (!target) {
+            message.channel.send("No mention detected. Fetching ID from guild member cache...")
+            try {
+                target = await guild.members.fetch(args[0]);
+                guild.members.ban(target);
+                message.channel.send("successful");
+            } catch (error) {
+                message.channel.send("userID not found in guild member cache. Searching discord cache...")
+                try {
+                    target = args[0];
+                    console.log(target);
+                    guild.members.ban(target);
+                    message.channel.send(`\`${target}\` was banned by \`${member.user.tag}\` for \`${reason}\`.`);
+                    return;
+                } catch {
+                    message.reply("Fail. Invalid userID.");
+                    console.log(error);
+                    return;
+                }
+            }
         }
         
         let banEmbed = new Discord.MessageEmbed()
