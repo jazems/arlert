@@ -9,6 +9,8 @@ module.exports = {
         
         const { member, mentions, guild } = message;
 
+        message.delete();
+
         if (!member.hasPermission('KICK_MEMBERS') || !member.hasPermission('ADMINISTRATOR')) {
             message.reply("You do not have permission to kick.");
             return;

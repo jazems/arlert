@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const { bot_info, token, prefix } = require('./config.json');
+const { bot_info, token, prefix, color } = require('./config.json');
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync(__dirname + "/commands").filter(file => file.endsWith('.js'));
@@ -29,15 +29,27 @@ client.on('message', async message => {
     const command = args.shift().toLowerCase();
 
     if (!client.commands.has(command)) {
-        message.reply(`Command not found. Type .help for a list of commands.`);
+        let unknownCommand = new Discord.MessageEmbed()
+        .setColor(color)
+        .setTitle('Arlert')
+        .setTimestamp()
+        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png')
+        .setDescription(`Command \`${command}\` not found. Type .help for a list of commands.`);
+        message.channel.send(unknownCommand);
         return;
     }
 
     try {
         await client.commands.get(command).execute(message, args);
     } catch (error) {
+        let errEmbed = new Discord.MessageEmbed()
+        .setColor(color)
+        .setTitle('Arlert')
+        .setTimestamp()
+        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png')
+        .setDescription(`There was an error trying to execute command \`${command}\`.`);
+        message.channel.send(errEmbed);
         console.error(error);
-        message.reply(`There was an error trying to execute command "${command}".`)
     }
 
 });

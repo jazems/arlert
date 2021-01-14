@@ -2,6 +2,9 @@ module.exports = {
     name: 'help',
     description: 'Command repo.',
     execute(message, args) {
+
+        if (!message.guild) return;
+        
         const Discord = require(`discord.js`);
         const fs = require(`fs`);
 

@@ -4,13 +4,13 @@ module.exports = {
 	execute(message, args) {
 
         if (!message.guild) return;
-        
+
         const Discord = require(`discord.js`);
         const { bot_info, color } = require(`./../config.json`);
         const infoEmbed = new Discord.MessageEmbed()
         .setColor(color)
         .setTitle('About')
-        .setDescription('cursed#0002 is a washed dev studying CS at Cal. This bot was made to automate bot flipping in order to save hours creating bot listings.')
+        .setDescription('cursed#0002 is a freshman studying CS. This bot was made to automate bot flipping in order to save hours creating bot listings.')
         .setTimestamp()
         .addFields(
             { name: 'Github', value: 'https://github.com/jazems', property: false },
