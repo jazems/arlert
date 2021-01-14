@@ -1,36 +1,54 @@
 module.exports = {
     name: 'kick',
-    description: 'Kick a member.',
-    execute(message, args) {
+    description: 'kick a member.',
+    async execute(message, args) {
+        const Discord = require('discord.js');
+        const { bot_info, token, prefix } = require(`./../config.json`);
 
         if (!message.guild) return;
+        
+        const { member, mentions, guild } = message;
+
+        if (!member.hasPermission('KICK_MEMBERS') || !member.hasPermission('ADMINISTRATOR')) {
+            message.reply("You do not have permission to kick.");
+            return;
+        }
 
         if (args.length == 0) {
             message.reply(`You must specify a user to kick.`);
             return;
         }
 
-        const { member, mentions } = message;
-        const target = mentions.members.first();
-        let reason;
+        let target = mentions.members.first();
+        let reason = args.slice(1).join(' ');
 
-        if (args.length > 1) {
-            reason = args.slice(1).join(' ');
-            console.log(reason);
+        if (!reason) {
+            reason = undefined;
         }
 
-        if (member.hasPermission('ADMINISTRATOR') || 
-        member.hasPermission('KICK_MEMBERS')) {
-            if (reason != null) {
-                message.channel.send(`<@${target.id}> was kicked for ${reason}.`);
-            } else {
-                message.channel.send(`<@${target.id}> was kicked.`);
+        let kickEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('User kicked')
+        .setTimestamp()
+        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
+
+        if (!target) {
+            try {
+                target = await guild.members.fetch(args[0]);
+                target.kick(reason);
+                kickEmbed.setDescription(`\`${target.user.tag}\` was kicked by \`${member.user.tag}\` for \`${reason}\`.`)
+                message.channel.send(kickEmbed);
+                return;
+            } catch (error) {
+                kickEmbed.setDescription(`Invalid userID.`)
+                message.channel.send(kickEmbed);
+                return;
             }
-            target.kick();
         } else {
-            message.reply('Insufficient permissions.');
+            target.kick(reason);
+            kickEmbed.setDescription(`\`${target.user.tag}\` was kicked by \`${member.user.tag}\` for \`${reason}\`.`)
+            message.channel.send(kickEmbed);
+            return;
         }
-
-        
     }
 }
