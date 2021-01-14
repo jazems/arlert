@@ -1,6 +1,6 @@
 module.exports = {
     name: 'ban',
-    description: 'ban a member.',
+    description: 'Ban a member.',
     async execute(message, args) {
         const Discord = require('discord.js');
         const { bot_info, token, prefix } = require(`./../config.json`);
@@ -32,7 +32,7 @@ module.exports = {
         .setColor(color)
         .setTitle('User banned')
         .setTimestamp()
-        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
+        .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
 
         if (!target) {
             try {

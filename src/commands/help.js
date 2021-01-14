@@ -4,7 +4,7 @@ module.exports = {
     execute(message, args) {
 
         if (!message.guild) return;
-        
+
         const Discord = require(`discord.js`);
         const fs = require(`fs`);
 
@@ -15,7 +15,7 @@ module.exports = {
         .setTitle('Help')
         .setDescription('Administrative toolkit designed to automate the bot flipping process.\n ')
         .setTimestamp()
-        .setFooter(`Arlert Toolkit Version ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
+        .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
 
         const commandFiles = fs.readdirSync(__dirname).filter(file => file.endsWith('.js'));
         console.log(commandFiles);

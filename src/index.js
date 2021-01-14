@@ -33,7 +33,7 @@ client.on('message', async message => {
         .setColor(color)
         .setTitle('Arlert')
         .setTimestamp()
-        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png')
+        .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png')
         .setDescription(`Command \`${command}\` not found. Type .help for a list of commands.`);
         message.channel.send(unknownCommand);
         return;
@@ -46,7 +46,7 @@ client.on('message', async message => {
         .setColor(color)
         .setTitle('Arlert')
         .setTimestamp()
-        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png')
+        .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png')
         .setDescription(`There was an error trying to execute command \`${command}\`.`);
         message.channel.send(errEmbed);
         console.error(error);

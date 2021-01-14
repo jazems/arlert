@@ -24,7 +24,7 @@ module.exports = {
             .setColor(color)
             .setTitle('Clear')
             .setTimestamp()
-            .setFooter(`Arlert Toolkit Version ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
+            .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
             returnEmbed.setDescription(`Deleted ${numDelete} message(s).`)
             
             message.reply(returnEmbed)

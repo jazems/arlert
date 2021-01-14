@@ -16,7 +16,7 @@ module.exports = {
             { name: 'Github', value: 'https://github.com/jazems', property: false },
             { name: 'Twitter', value: 'https://twitter.com/botvest', property: false },
         )
-        .setFooter(`Arlert Toolkit ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
+        .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
         
         message.reply(' ');
         message.channel.send(infoEmbed);
