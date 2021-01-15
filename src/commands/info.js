@@ -10,7 +10,7 @@ module.exports = {
         const infoEmbed = new Discord.MessageEmbed()
         .setColor(color)
         .setTitle('About')
-        .setDescription('cursed#0002 is a freshman studying CS. This bot was made to automate bot flipping in order to save hours creating bot listings.')
+        .setDescription('Lightweight administrative toolkit.')
         .setTimestamp()
         .addFields(
             { name: 'Github', value: 'https://github.com/jazems', property: false },

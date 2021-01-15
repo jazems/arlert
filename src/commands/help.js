@@ -13,7 +13,7 @@ module.exports = {
         const helpEmbed = new Discord.MessageEmbed()
         .setColor(color)
         .setTitle('Help')
-        .setDescription('Administrative toolkit designed to automate the bot flipping process.\n ')
+        .setDescription('Lightweight administrative toolkit.\n ')
         .setTimestamp()
         .setFooter(`${bot_info.name} ${bot_info.version}`, 'https://i.pinimg.com/originals/83/70/cb/8370cb432131e814c78379eb78a4bdbe.png');
 

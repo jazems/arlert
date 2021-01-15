@@ -33,7 +33,7 @@ module.exports = {
                     { name: 'account creation date', value: `${target.user.createdAt}`, inline: false },
                     { name: `server join date`, value: `${target.joinedAt}`, inline: false }
                     )
-                .setImage(target.user.displayAvatarURL( {size: 1024, dynamic: true} ))
+                .setThumbnail(target.user.displayAvatarURL( {dynamic: true} ))
                 message.channel.send(idEmbed);
                 return;
             } catch (error) {
@@ -49,7 +49,7 @@ module.exports = {
                 { name: 'account creation date', value: `${target.user.createdAt}`, inline: false },
                 { name: `server join date`, value: `${target.joinedAt}`, inline: false }
                 )
-            .setImage(target.user.displayAvatarURL( {size: 1024, dynamic: true} ))
+            .setThumbnail(target.user.displayAvatarURL( {dynamic: true} ))
             message.channel.send(idEmbed);
             return;
         }
