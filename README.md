@@ -2,11 +2,11 @@
 Lightweight discord administration toolkit.
 
 ## Features
-11 commands
+11 commands:
 
-Avi, ban, clear, coinflip, help, id, info, kick, unban, todo: prefix, color
+avi, ban, clear, coinflip, color, help, id, info, kick, prefix, unban
 
-## Info
-Coded in discord.js
-
-Utilizes Mongodb
+## Built with
+- [Node.js](https://nodejs.org/en/)
+- [mongoDB](https://www.mongodb.com/)
+- [discord.js](https://discord.js.org/#/)
