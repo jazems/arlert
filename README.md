@@ -1,5 +1,5 @@
 # Arlert
-Arlert is a lightweight discord administration toolkit.
+Lightweight discord administration toolkit.
 
 ## Features
 11 commands
