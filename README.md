@@ -8,4 +8,5 @@ Avi, ban, clear, coinflip, help, id, info, kick, unban, todo: prefix, color
 
 ## Info
 Coded in discord.js
+
 Utilizes Mongodb
