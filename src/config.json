@@ -1,9 +1,10 @@
 {
     "prefix" : ".",
-    "token" : "NzQ0NTAwMDUyNDc4OTE4NzA5.XzkHtA.9VQIM9uOqZNERFtZU3dYjLHhEQc",
+    "token" : "NzQ0NTAwMDUyNDc4OTE4NzA5.XzkHtA.6_9aEOMLAVeRnUzf2OgJa0oIIMo",
     "color" : "#ffffff",
     "bot_info" : {
         "name" : "Arlert Toolkit",
         "version" : "0.0"
-    }
+    },
+    "mongoPath" : "mongodb://localhost:27017/arlert"
 }

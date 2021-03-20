@@ -3,6 +3,8 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const { bot_info, token, prefix, color } = require('./config.json');
+const welcome = require('./commands/welcome')
+const mongo = require('./mongo');
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync(__dirname + "/commands").filter(file => file.endsWith('.js'));
@@ -12,10 +14,18 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.on('ready', () => {
+client.on('ready', async () => {
     console.log(`${client.user.tag} has logged in.`);
     console.log(`Launching ${bot_info.name} - Version ${bot_info.version}`);
     client.user.setActivity("Fall of Marley", { type: "WATCHING" })
+
+    await mongo().then(mongoose => {
+        try {
+            console.log('Connected to mongo!')
+        } finally {
+            mongoose.connection.close()
+        }
+    })
 });
 
 client.on('message', async message => {
