@@ -1,6 +1,8 @@
 # Arlert
-Lightweight discord administration toolkit.
+Lightweight discord administration toolkit. 
 
+Includes 10 commands:
+avi, ban, clear, coinflip, help, id, info, kick, unban, setwelcome
 
 ## Built With
 
